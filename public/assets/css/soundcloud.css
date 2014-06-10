@@ -1,0 +1,70 @@
+#header{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #030303;
+    color: #FFF;
+    width: 150px;
+    padding: 10px 10px 0 10px;
+}
+
+#body{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 150px;
+    right: 0;
+    background-color: #123456;
+    color: #FFF;
+    padding: 0 10px 0 16px;
+}
+
+#footer{
+    position: fixed;
+    height: 58px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #272727;
+    color: #FFF;
+    padding: 0 10px 0 16px;
+}
+
+
+.margin-top-2{
+    margin-top: 20px;
+}
+
+
+.css-message{ 
+    box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    position: relative; 
+    height: 150px; 
+    width: 600px; 
+    background-color: #428BCA; 
+    border-radius: 50px; 
+    display: table-cell;
+    vertical-align: middle;
+    min-height:100px; 
+    height:auto !important;
+}
+.css-message p {
+    display: inline-block;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.button_header {
+    background-color:#030303;
+    color: #999;
+    padding: 5px;
+    border:0;
+    outline:none;
+}
+.button_header:hover {
+    color:white;
+    color: #FFF;
+}

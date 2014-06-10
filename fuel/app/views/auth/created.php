@@ -1,0 +1,1 @@
+<div class="widewrapper main">    <div class="container">        <div class="row">            <div class='col-md-12 margin-top-2 mufee-superblock'>                <div class='row'>                    <h2>作成完了しました</h2>                </div>            </div>        </div>    </div></div>
