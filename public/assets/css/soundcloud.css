@@ -68,33 +68,3 @@
     color:white;
     color: #FFF;
 }
-.music_select{
-    background-color:#ffffff;
-    width: 500px;
-    height: 250px;
-     position: relative;
-}
-.music_select_left{
-    float: left;
-    position: absolute;
-    left:0;
-}
-
-.music_select_center{
-    float: left;
-    position: absolute;
-        top: 50%;
-        left:45%;
-        margin-top: -1em;
-}
-.music_select_center button{
-  size:250px; 
-}
-.music_select_right{
-    float: left;
-    position: absolute;
-    left:60%;
-}
-.music_select_submit{
-  clear: both;
-}
