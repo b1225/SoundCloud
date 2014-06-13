@@ -7,9 +7,20 @@ class Controller_Mypage extends Controller_Template {
         $this->template->title = 'MyPage';
         // viewの適用
         $this->template->content = View::forge('mypage/index');
+        //ログイン中のユーザーID取得
+        $userid = Auth::get_user_id()[1];
+        //ユーザーが投稿したジャンル取得
+        $genre = Model_Mypage::get_genre_summary($userid);
+        //ユーザーが投稿したアーティスト取得
+        
+        //ユーザーが投稿したアルバム取得
+        
+        //ユーザーが投稿したアーティスト取得
+        //viewに渡す
+        $this->template->content->set_safe('genre', $genre->as_array());
     }
 
-    function action_music() {
+    function action_upload() {
         $files = Input::post('title');
         // titleの設定
         $this->template->title = 'Music';
@@ -18,7 +29,7 @@ class Controller_Mypage extends Controller_Template {
         if (is_null($files)) {
             
         } else {
-            $token=Input::post('token');
+            $token = Input::post('token');
             // 送信されたトークンがセッションのトークン配列の中にあるか調べる
             if (Session::get($token) === $token) {
                 // 正常な POST
@@ -40,25 +51,24 @@ class Controller_Mypage extends Controller_Template {
 
                     foreach (Upload::get_files() as $file) {
                         //ファイル情報を使用した処理
-                        
+
                         if (Input::method() == 'POST') {
-                            
+
                             $message = 'Upload完了';
                             Session::delete($token); // 使用済みトークンを破棄
                             //投稿するユーザーのID取得
                             $id = Auth::get_user_id();
-                            $filename = DOCROOT . 'uploadmusic/'.$file['saved_as'];
-                            echo '<meta charset="utf-8"><br>'.$filename.'<br>';
+                            $filename = DOCROOT . 'uploadmusic/' . $file['saved_as'];
+                            echo '<meta charset="utf-8"><br>' . $filename . '<br>';
                             $getID3 = new getId3();
                             $music_temp = $getID3->analyze($filename);
                             getid3_lib::CopyTagsToComments($music_temp);
-                            $music=$music_temp["tags"]["id3v2"];
+                            $music = $music_temp["tags"]["id3v2"];
                             //モデルに保存したファイル名とファイルパスを渡す
-                            Model_Mypage::insert($music['title'],$music['artist'],$music['album'],$music['band'],$music['genre'],$music_temp['filename'],$music_temp['filepath'], $id[1]);
+                            Model_Mypage::insert($music['title'], $music['artist'], $music['album'], $music['band'], $music['genre'], $music_temp['filename'], $music_temp['filepath'], $id[1]);
 
                             $this->template->content->set_safe('message', $message);
                         }
-
                     }
                 } else {
 
@@ -72,13 +82,17 @@ class Controller_Mypage extends Controller_Template {
             } else {
                 $message = 'トークンが不正です';
                 $this->template->content->set_safe('message', $message);
-                
             }
         }
     }
 
-    function action_musicupload() {
-        
+    function action_check() {
+        $genre = Input::post('genre');
+        if (isset($_POST['playback'])) {
+            //再生処理
+        } elseif (isset($_POST['edit'])) {
+            //編集処理
+        }
     }
-
 }
+    

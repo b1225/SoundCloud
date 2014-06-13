@@ -15,6 +15,7 @@ class Model_Mypage extends Model {
         'save_path',
         'id',
     );
+    
 
     public static function insert($title, $artist, $album, $album_artist, $genre, $save_name, $save_path, $id) {
 
@@ -30,6 +31,15 @@ class Model_Mypage extends Model {
         'id' => $id,
         );
         DB::insert('musics')->columns($columns)->values($values)->execute();
+    }
+    public static function get_genre_summary($user)
+    {
+        $result = DB::select('genre')->from('musics')->distinct(true)->where('id','=',$user)->execute();
+        return $result;
+    }
+    public static function get_music()
+    {
+        
     }
 
 }
