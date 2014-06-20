@@ -10,22 +10,24 @@ class Controller_Mypage extends Controller_Template {
         //ログイン中のユーザーID取得
         $userid = Auth::get_user_id()[1];
         //ユーザーが投稿したジャンル取得
-        $genre = Model_Mypage::get_genre_summary($userid);
+        $genre = Model_Mypage::get_genre($userid);
         //ユーザーが投稿したアーティスト取得
-        
-        //ユーザーが投稿したアルバム取得
-        
+        $all_music = Model_Mypage::get_music($userid);
         //ユーザーが投稿したアーティスト取得
+        $artist = Model_Mypage::get_artist($userid);
+
         //viewに渡す
+        $this->template->content->set_safe('all_music', $all_music->as_array());
         $this->template->content->set_safe('genre', $genre->as_array());
+        $this->template->content->set_safe('artist', $artist->as_array());
     }
 
     function action_upload() {
         $files = Input::post('title');
         // titleの設定
-        $this->template->title = 'Music';
+        $this->template->title = 'Music_upload';
         // viewの適用
-        $this->template->content = View::forge('mypage/music');
+        $this->template->content = View::forge('mypage/upload');
         if (is_null($files)) {
             
         } else {
@@ -59,7 +61,6 @@ class Controller_Mypage extends Controller_Template {
                             //投稿するユーザーのID取得
                             $id = Auth::get_user_id();
                             $filename = DOCROOT . 'uploadmusic/' . $file['saved_as'];
-                            echo '<meta charset="utf-8"><br>' . $filename . '<br>';
                             $getID3 = new getId3();
                             $music_temp = $getID3->analyze($filename);
                             getid3_lib::CopyTagsToComments($music_temp);
@@ -86,13 +87,25 @@ class Controller_Mypage extends Controller_Template {
         }
     }
 
-    function action_check() {
+    function action_music() {
+        // titleの設定
+        $this->template->title = 'MyPage';
+        // viewの適用
+        $this->template->content = View::forge('mypage/music');
         $genre = Input::post('genre');
+        var_dump($genre);
+        exit;
+    }
+
+    function action_check() {
+        $genre = Input::post();
         if (isset($_POST['playback'])) {
             //再生処理
+            var_dump($genre);
+            exit;
         } elseif (isset($_POST['edit'])) {
             //編集処理
         }
     }
+
 }
-    

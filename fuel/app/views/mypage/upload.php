@@ -1,3 +1,8 @@
+<?php
+session_start();
+$token = sha1(uniqid(mt_rand(), true));
+Session::set($token, $token);
+?>
 <div class="widewrapper main">
     <div class="container">
         <div class="row">
@@ -7,9 +12,9 @@
                         <h2>
                             <i class="icon-music"></i> Upload Music
                         </h2>
-                        <form action="musicupload" method="post" enctype="multipart/form-data">
+                        <form action="upload" method="post" enctype="multipart/form-data">
                             <table class="table table-striped">
-                                    <tr>
+                                <tr>
                                     <th>ジャンル</th>
                                     <td>
                                         <select class="form-control input-lg" name="genre">
@@ -25,6 +30,7 @@
                                 <tr>
                                     <th>ファイル</th>
                                     <td>
+                                        <input type="hidden" name="token" value="<?php echo $token; ?>">
                                         <input class='input-lg' type="file" name="upload_file">
                                     </td>
                                 </tr>
@@ -35,10 +41,16 @@
                             </table>
                             <div class="buttons clearfix">
                                 <button type="submit" class="btn btn-xlarge btn-mufee-one">Upload</button>
-                                <input type='button' onClick="location.href='/artist/'" class="btn btn-xlarge btn-mufee-two" value='Cansel'>
+                                <input type='button' onClick="location.href = '/artist/'" class="btn btn-xlarge btn-mufee-two" value='Cansel'>
                             </div>
                         </form>
                     </aside>
+
+<?php if (!empty($message)): ?>
+                        <div class="col-md-6 margin-top-2 ">
+                            <div class="css-message"><p><?php echo $message ?></p></div>
+                        </div>
+<?php endif; ?>
                 </div>
             </div>
         </div>

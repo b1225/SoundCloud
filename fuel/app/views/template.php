@@ -14,8 +14,11 @@
         <?php echo Asset::css('bootstrap-theme.css'); ?>
 
         <!-- JavaScript -->
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <?php echo Asset::js('SoundCloud.js'); ?>
         <?php echo Asset::js('prototype.js'); ?>
-        
+        <?php echo Asset::js('jquery-1.9.1.js'); ?>
+        <?php echo Asset::js('bootstrap.js'); ?>
         <!-- Font-Awesome -->
 
         <!-- Google Webfonts -->
@@ -38,6 +41,7 @@
                 <button class="button_header" onClick="location.href = '<?php echo Uri::base();?>'">Home</button>
                 <?php if (Auth::check()) : ?>
                 <button class="button_header" onClick="location.href = '/mypage/index'"><i class="glyphicon glyphicon-home"></i> Mypage</button>
+                <button class="button_header" onClick="location.href = 'upload'">MusicUpload</button>
                 <button class="button_header" onClick="location.href = '/auth/logout'">Logout</button>
                 <?php else : ?>
                     <button class="button_header" onClick="location.href = '/auth/usercreate'">ユーザ登録</button>

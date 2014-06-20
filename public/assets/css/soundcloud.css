@@ -68,3 +68,23 @@
     color:white;
     color: #FFF;
 }
+.area {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -moz-text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    width: 150px;
+    cursor: pointer;
+}
+
+.area:hover {
+    white-space: normal;
+}
+
+.scr{
+  overflow: auto;   /* スクロール表示 */ 
+  width: 100%;
+  max-height: 700px;
+  overflow-x: hidden;
+}

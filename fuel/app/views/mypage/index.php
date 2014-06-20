@@ -1,51 +1,165 @@
 <div>
     <p>mypage</p>
-    <button class="button_header" onClick="location.href = 'upload'">MusicUpload</button>
-    <button onclick="window.open('index.htm', '_blank', 'width=500,height=500');
-            return false;">XXX</button>
 
-    <div class="checkbox">
-        <?php if (!empty($genre)): ?>
-            <form method="post" action="check">
-                <p>ジャンル<br>
-                    <?php foreach ($genre as $value) :?>
-                        <label><input class="checkbox-inline" type="checkbox" name="genre[]" value="<?php echo $value['genre'];?>"><?php echo $value['genre'];?><br></label>
-                    <?php endforeach;?>
-                        <input type="submit" value="再生"  name="button1"><br>
-                        <input type="submit" value="編集"  name="button2"><br>
-            </form>
-<?php endif; ?>
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <div class='col-md-10 margin-top-2'>
+                    <div class='row'>
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#all" data-toggle="tab">all</a></li>
+                                <li><a href="#artist" data-toggle="tab">artist</a></li>
+                                <li><a href="#genre" data-toggle="tab">genre</a></li>
+                            </ul>
+                            <div id="my-tab-content" class="tab-content">
+                                <div class="tab-pane fade in active" id="all">
+                                    <div class="margin-top-2">
+                                        <div class="scr">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>  </th>
+                                                        <th>title</th>
+                                                        <th>artist</th>
+                                                        <th>album</th>
+                                                        <th>album_artist</th>
+                                                        <th>genre</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <?php if (isset($all_music)) : ?>
+                                                        <?php foreach ($all_music as $value): ?>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><div class="area"><?php echo $value['title']; ?></div></td>
+                                                                <td><div class="area"><?php echo $value['artist']; ?></div></td>
+                                                                <td><div class="area"><?php echo $value['album']; ?></div></td>
+                                                                <td><div class="area"><?php echo $value['album_artist']; ?></div></td>
+                                                                <td><div class="area"><?php echo $value['genre']; ?></div></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="artist">
+                                    <div class="col-md-10 margin-top-2">
+                                        <div class="scr">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>  </th>
+                                                        <th>artist</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <?php if (isset($artist)) : ?>
+                                                        <?php foreach ($artist as $value): ?>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><div class="area"><?php echo $value['artist']; ?></div></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="genre">
+                                    <div class="col-md-10 margin-top-2">
+                                        <div class="scr">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>  </th>
+                                                        <th>album</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <?php if (isset($genre)) : ?>
+                                                        <?php foreach ($genre as $value): ?>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><div class="area"><?php echo $value['genre']; ?></div></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<!--
+<button onclick="window.open('index.htm', '_blank', 'width=500,height=500');
+        return false;">XXX</button>
+
+<div class="checkbox">
+<?php if (!empty($genre)): ?>
+                    <form method="post" action="check">
+                        <p>ジャンル<br>
+    <?php foreach ($genre as $value) : ?>
+                                            <label><input class="checkbox-inline" type="checkbox" name="genre[]" value="<?php echo $value['genre']; ?>"><?php echo $value['genre']; ?><br></label>
+    <?php endforeach; ?>
+                                <input type="button" value="Post" onclick="openWindowAndPost()"/>
+                                <input type="submit" value="再生"  name="button1" onclick="music()"><br>
+                                <input type="submit" value="編集"  name="button2"><br>
+                    </form>
+<?php endif; ?>
+</div>
+</div>
 <script type="text/javascript">
-    function ajax_mypage_upload() {
-        var a = new Ajax.Updater(
-                "body",
-                "/mypage/upload.php",
-                {
-                    "method": "get",
-                    "parameters": "a=b&c=d&e=f",
-                    onSuccess: function(request) {
-                        // 成功時の処理を記述
-                        // alert('成功しました');
-                        // jsonの値を処理する場合↓↓
-                        //  var json;
-                        //  eval("json="+request.responseText);
-                    },
-                    onComplete: function(request) {
-                        // 完了時の処理を記述
-                        // alert('読み込みが完了しました');
-                        // jsonの値を処理する場合↓↓
-                        //  var json;
-                        //  eval("json="+request.responseText);
-                    },
-                    onFailure: function(request) {
-                        alert('読み込みに失敗しました');
-                    },
-                    onException: function(request) {
-                        alert('読み込み中にエラーが発生しました');
-                    }
+function ajax_mypage_upload() {
+    var a = new Ajax.Updater(
+            "body",
+            "/mypage/upload.php",
+            {
+                "method": "get",
+                "parameters": "a=b&c=d&e=f",
+                onSuccess: function(request) {
+                    // 成功時の処理を記述
+                    // alert('成功しました');
+                    // jsonの値を処理する場合↓↓
+                    //  var json;
+                    //  eval("json="+request.responseText);
+                },
+                onComplete: function(request) {
+                    // 完了時の処理を記述
+                    // alert('読み込みが完了しました');
+                    // jsonの値を処理する場合↓↓
+                    //  var json;
+                    //  eval("json="+request.responseText);
+                },
+                onFailure: function(request) {
+                    alert('読み込みに失敗しました');
+                },
+                onException: function(request) {
+                    alert('読み込み中にエラーが発生しました');
                 }
-        );
-    }
+            }
+    );
+}
+function openWindowAndPost()
+{
+    window.open('music.php','formpost','width=800,height=600,scrollbars=yes');
+    var form = document.form1;
+    form.action = '/music.php';
+    form.target = 'formpost';
+    form.method = 'post';
+    form.submit();
+}
 </script>
