@@ -6,6 +6,7 @@
             <div class="row">
                 <div class='col-md-10 margin-top-2'>
                     <div class='row'>
+                        <form method="GET" action="music" target="myWindow" >
                         <div class="tabbable">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#all" data-toggle="tab">all</a></li>
@@ -19,7 +20,7 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>  </th>
+                                                        <th><input type="checkbox" name="all_check" value="all" id="all_check"></th>
                                                         <th>title</th>
                                                         <th>artist</th>
                                                         <th>album</th>
@@ -32,7 +33,7 @@
                                                     <?php if (isset($all_music)) : ?>
                                                         <?php foreach ($all_music as $value): ?>
                                                             <tr>
-                                                                <td></td>
+                                                                <td><input type="checkbox" name="all_music[]" value="<?php echo $value['musicid'] ?>"></td>
                                                                 <td><div class="area"><?php echo $value['title']; ?></div></td>
                                                                 <td><div class="area"><?php echo $value['artist']; ?></div></td>
                                                                 <td><div class="area"><?php echo $value['album']; ?></div></td>
@@ -52,7 +53,7 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>  </th>
+                                                        <th><input type="checkbox" name="artist_check" value="" id="artist_check"></th>
                                                         <th>artist</th>
                                                     </tr>
                                                 </thead>
@@ -61,7 +62,7 @@
                                                     <?php if (isset($artist)) : ?>
                                                         <?php foreach ($artist as $value): ?>
                                                             <tr>
-                                                                <td></td>
+                                                                <td><input type="checkbox" name="all_artist[]" value=""></td>
                                                                 <td><div class="area"><?php echo $value['artist']; ?></div></td>
                                                             </tr>
                                                         <?php endforeach; ?>
@@ -77,7 +78,7 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>  </th>
+                                                        <th><input type="checkbox" name="album_check" value="all" id="album_check"></th>
                                                         <th>album</th>
                                                     </tr>
                                                 </thead>
@@ -86,7 +87,7 @@
                                                     <?php if (isset($genre)) : ?>
                                                         <?php foreach ($genre as $value): ?>
                                                             <tr>
-                                                                <td></td>
+                                                                <td><input type="checkbox" name="all_album[]" value=""></td>
                                                                 <td><div class="area"><?php echo $value['genre']; ?></div></td>
                                                             </tr>
                                                         <?php endforeach; ?>
@@ -98,6 +99,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <input type="submit" value="開く" onClick="newOpen('music','myWindow',500,500);" >
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -110,15 +115,15 @@
 
 <div class="checkbox">
 <?php if (!empty($genre)): ?>
-                    <form method="post" action="check">
-                        <p>ジャンル<br>
+                        <form method="post" action="check">
+                            <p>ジャンル<br>
     <?php foreach ($genre as $value) : ?>
-                                            <label><input class="checkbox-inline" type="checkbox" name="genre[]" value="<?php echo $value['genre']; ?>"><?php echo $value['genre']; ?><br></label>
+                                                    <label><input class="checkbox-inline" type="checkbox" name="genre[]" value="<?php echo $value['genre']; ?>"><?php echo $value['genre']; ?><br></label>
     <?php endforeach; ?>
-                                <input type="button" value="Post" onclick="openWindowAndPost()"/>
-                                <input type="submit" value="再生"  name="button1" onclick="music()"><br>
-                                <input type="submit" value="編集"  name="button2"><br>
-                    </form>
+                                    <input type="button" value="Post" onclick="openWindowAndPost()"/>
+                                    <input type="submit" value="再生"  name="button1" onclick="music()"><br>
+                                    <input type="submit" value="編集"  name="button2"><br>
+                        </form>
 <?php endif; ?>
 </div>
 </div>

@@ -25,8 +25,6 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600|PT+Serif:400,400' rel='stylesheet' type='text/css'>
 
         <!-- Styles -->
-
-        <!-- Mufee Styles -->
         <?php echo Asset::css('soundcloud.css') ?>
 
         <!--[if lt IE 9]>
@@ -41,7 +39,7 @@
                 <button class="button_header" onClick="location.href = '<?php echo Uri::base();?>'">Home</button>
                 <?php if (Auth::check()) : ?>
                 <button class="button_header" onClick="location.href = '/mypage/index'"><i class="glyphicon glyphicon-home"></i> Mypage</button>
-                <button class="button_header" onClick="location.href = 'upload'">MusicUpload</button>
+                <button class="button_header" onClick="location.href = '/mypage/upload'">MusicUpload</button>
                 <button class="button_header" onClick="location.href = '/auth/logout'">Logout</button>
                 <?php else : ?>
                     <button class="button_header" onClick="location.href = '/auth/usercreate'">ユーザ登録</button>

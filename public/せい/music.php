@@ -1,4 +1,3 @@
-
 <div class="music_box">
     <div class="container margin-top-2">
         <div class="row">
@@ -44,20 +43,35 @@
 
 <!DOCTYPE html>
 <script type="text/javascript">// <![CDATA[
-    function loadJPlayer() {
-    $('#jquery_jplayer_1').jPlayer({
-        ready: function() {
-            $(this).jPlayer('volume', 0.5)
-                    .jPlayer('setMedia', {
-  	    mp3: "../uploadmusic/6fe81fa4a250c9aace4af6f2e55b1643.mp3",})
-                    .jPlayer('play');
-        },
-        swfPath: '../swf',
-        supplied: 'mp3, m4a,',
-        cssSelectorAncestor: '#jp_interface_1',
-    });
-}
-
-
-
+	$(function() {
+ 
+	for(var i=1; i<=$('div.jp-jplayer').length; i++) {
+	/* プレイヤー分設置する */
+        $("#audio_player_" + i).jPlayer({
+                 /* イベントハンドラ */
+                 ready: function(){
+                 var num	= $(this).attr('id').split('_');
+		num	= parseInt(num[num.length - 1], 10);
+	        /* 仮にmp3のファイル名は 1.mp3,2.mp3,3.mp3とした */
+		/*  よって、順番にセットされていく */
+		song_file = "/uploadmusic/6fe81fa4a250c9aace4af6f2e55b1643.mp3";
+ 
+                 $(this).jPlayer("setMedia", {
+				mp3 : song_file
+		});
+             },
+	cssSelectorAncestor: "#jp_container_" + i,
+               /* 音量 */
+                volume: 0.5,
+                 /* Jplayer.swfをおいたパス */
+	       swfPath: "/jplay/",
+		solution: 'php ,html, htm,flash',
+                  /* フォーマット優先度 */
+                    supplied: "mp3"
+                })
+                .bind($.jPlayer.event.play, function() {
+                    $(this).jPlayer("pauseOthers");
+                });
+			}
+})
 // ]]></script>

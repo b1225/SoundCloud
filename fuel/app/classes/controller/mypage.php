@@ -88,18 +88,21 @@ class Controller_Mypage extends Controller_Template {
     }
 
     function action_music() {
+        
+        $this->template = View::forge('template/musictemplate');
         // titleの設定
         $this->template->title = 'MyPage';
         // viewの適用
         $this->template->content = View::forge('mypage/music');
-        $genre = Input::post('genre');
-        var_dump($genre);
-        exit;
+        if (isset($_GET['all_music'])) {
+            //再生処理
+            var_dump($_GET['all_music']);
+        }
     }
 
     function action_check() {
         $genre = Input::post();
-        if (isset($_POST['playback'])) {
+        if (isset($_POST['all_music'])) {
             //再生処理
             var_dump($genre);
             exit;
