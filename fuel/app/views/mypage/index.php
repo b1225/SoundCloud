@@ -1,44 +1,43 @@
-<div>
-    <p>mypage</p>
 
-    <div class="widewrapper main">
-        <div class="container">
-            <div class="row">
-                <div class='col-md-10 margin-top-2'>
-                    <div class='row'>
-                        <form method="GET" action="music" target="myWindow" >
-                        <div class="tabbable">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#all" data-toggle="tab">all</a></li>
-                                <li><a href="#artist" data-toggle="tab">artist</a></li>
-                                <li><a href="#genre" data-toggle="tab">genre</a></li>
-                            </ul>
+<div class="widewrapper main">
+    <div class="container">
+        <div class="row">
+            <div class='row'>
+                <form method="post" action="music">
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#all" data-toggle="tab">all</a></li>
+                            <li><a href="#artist" data-toggle="tab">artist</a></li>
+                            <li><a href="#genre" data-toggle="tab">genre</a></li>
+                        </ul>
+                        <div class="max-height-75">
                             <div id="my-tab-content" class="tab-content">
-                                <div class="tab-pane fade in active" id="all">
-                                    <div class="margin-top-2">
+                                <div class="tab-pane fade in active max-height-75" id="all">
+                                    <div class="scr-box">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="table-check"><input type="checkbox" name="all_check" value="all" id="all_check"></th>
+                                                    <th class="table-data">title</th>
+                                                    <th class="table-data">artist</th>
+                                                    <th class="table-data">album</th>
+                                                    <th class="table-data">album_artist</th>
+                                                    <th class="table-data">genre</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                         <div class="scr">
                                             <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th><input type="checkbox" name="all_check" value="all" id="all_check"></th>
-                                                        <th>title</th>
-                                                        <th>artist</th>
-                                                        <th>album</th>
-                                                        <th>album_artist</th>
-                                                        <th>genre</th>
-                                                    </tr>
-                                                </thead>
                                                 <tbody>
-
                                                     <?php if (isset($all_music)) : ?>
                                                         <?php foreach ($all_music as $value): ?>
                                                             <tr>
-                                                                <td><input type="checkbox" name="all_music[]" value="<?php echo $value['musicid'] ?>"></td>
-                                                                <td><div class="area"><?php echo $value['title']; ?></div></td>
-                                                                <td><div class="area"><?php echo $value['artist']; ?></div></td>
-                                                                <td><div class="area"><?php echo $value['album']; ?></div></td>
-                                                                <td><div class="area"><?php echo $value['album_artist']; ?></div></td>
-                                                                <td><div class="area"><?php echo $value['genre']; ?></div></td>
+                                                                <td class="table-check"><input type="checkbox" name="all_music[]" value="<?php echo $value['musicid'] ?>"></td>
+                                                                <td class="table-data"><div class="area"><?php echo $value['title']; ?></div></td>
+                                                                <td class="table-data"><div class="area"><?php echo $value['artist']; ?></div></td>
+                                                                <td class="table-data"><div class="area"><?php echo $value['album']; ?></div></td>
+                                                                <td class="table-data"><div class="area"><?php echo $value['album_artist']; ?></div></td>
+                                                                <td class="table-data"><div class="area"><?php echo $value['genre']; ?></div></td>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     <?php endif; ?>
@@ -48,22 +47,23 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="artist">
-                                    <div class="col-md-10 margin-top-2">
+                                    <div class="scr-box">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="table-check"><input type="checkbox" name="artist_check" value="" id="artist_check"></th>
+                                                    <th class="table-data">artist</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                         <div class="scr">
                                             <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th><input type="checkbox" name="artist_check" value="" id="artist_check"></th>
-                                                        <th>artist</th>
-                                                    </tr>
-                                                </thead>
                                                 <tbody>
-
                                                     <?php if (isset($artist)) : ?>
                                                         <?php foreach ($artist as $value): ?>
                                                             <tr>
-                                                                <td><input type="checkbox" name="all_artist[]" value=""></td>
-                                                                <td><div class="area"><?php echo $value['artist']; ?></div></td>
+                                                                <td class="table-check"><input type="checkbox" name="all_artist[]" value=""></td>
+                                                                <td class="table-data"><div class="area"><?php echo $value['artist']; ?></div></td>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     <?php endif; ?>
@@ -73,22 +73,23 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="genre">
-                                    <div class="col-md-10 margin-top-2">
+                                    <div class="scr-box">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="table-check"><input type="checkbox" name="album_check" value="all" id="album_check"></th>
+                                                    <th class="table-data">album</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                         <div class="scr">
                                             <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th><input type="checkbox" name="album_check" value="all" id="album_check"></th>
-                                                        <th>album</th>
-                                                    </tr>
-                                                </thead>
                                                 <tbody>
-
                                                     <?php if (isset($genre)) : ?>
                                                         <?php foreach ($genre as $value): ?>
                                                             <tr>
-                                                                <td><input type="checkbox" name="all_album[]" value=""></td>
-                                                                <td><div class="area"><?php echo $value['genre']; ?></div></td>
+                                                                <td class="table-check"><input type="checkbox" name="all_album[]" value=""></td>
+                                                                <td class="table-data"><div class="area"><?php echo $value['genre']; ?></div></td>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     <?php endif; ?>
@@ -99,31 +100,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <input type="submit" value="開く" onClick="newOpen('music','myWindow',500,500);" >
-                        </div>
-                        </form>
                     </div>
-                </div>
+                    <div class="col-lg-10 margin-top-2 margin-bottom-2 music_button text-right">
+                        <input type="submit" value="開く">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 <!--
 <button onclick="window.open('index.htm', '_blank', 'width=500,height=500');
         return false;">XXX</button>
 
 <div class="checkbox">
 <?php if (!empty($genre)): ?>
-                        <form method="post" action="check">
-                            <p>ジャンル<br>
+                                    <form method="post" action="check">
+                                        <p>ジャンル<br>
     <?php foreach ($genre as $value) : ?>
-                                                    <label><input class="checkbox-inline" type="checkbox" name="genre[]" value="<?php echo $value['genre']; ?>"><?php echo $value['genre']; ?><br></label>
+                                                                            <label><input class="checkbox-inline" type="checkbox" name="genre[]" value="<?php echo $value['genre']; ?>"><?php echo $value['genre']; ?><br></label>
     <?php endforeach; ?>
-                                    <input type="button" value="Post" onclick="openWindowAndPost()"/>
-                                    <input type="submit" value="再生"  name="button1" onclick="music()"><br>
-                                    <input type="submit" value="編集"  name="button2"><br>
-                        </form>
+                                                <input type="button" value="Post" onclick="openWindowAndPost()"/>
+                                                <input type="submit" value="再生"  name="button1" onclick="music()"><br>
+                                                <input type="submit" value="編集"  name="button2"><br>
+                                    </form>
 <?php endif; ?>
 </div>
 </div>

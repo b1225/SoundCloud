@@ -15,9 +15,10 @@
 
         <!-- JavaScript -->
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <?php echo Asset::js('jquery-1.9.1.js'); ?>
         <?php echo Asset::js('SoundCloud.js'); ?>
         <?php echo Asset::js('prototype.js'); ?>
-        <?php echo Asset::js('jquery-1.9.1.js'); ?>
+        
         <?php echo Asset::js('bootstrap.js'); ?>
         <!-- Font-Awesome -->
 

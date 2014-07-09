@@ -1,0 +1,58 @@
+/*曲数*/
+var next;
+/*曲データ*/
+var myPlaylist = [];
+/*添え字*/
+var index=0;
+
+function loadJPlayer() {
+   playlistdata();
+   $("#audio_player").jPlayer({
+        /* イベントハンドラ */
+        ready: function() {
+            /* 再生するメディアの定義 */
+            $(this).jPlayer("setMedia", myPlaylist[index]).jPlayer("play"); /* 自動再生 */
+            document.getElementById("title").innerText = myPlaylist[index]["title"];
+            index++;
+            next--;
+        },
+        ended: function(event) {
+            /* 終了時 */
+            
+            if (next === -1) {
+                
+            } else {
+                $(nextMusic);
+            }
+        },
+        swfPath: '/swf',
+        supplied: 'mp3',
+       playlistOptions: {
+            autoPlay: true
+        }
+    });
+};
+function nextMusic() {
+    
+    $("#audio_player").jPlayer("setMedia", myPlaylist[index]).jPlayer("play"); /* 自動再生 */
+    
+    document.getElementById("title").innerText = myPlaylist[index]["title"];
+    index++;
+    next--;
+
+};
+function playlistdata()
+{
+   var i;
+   var temp;
+    for (i = 0; i < music_data.length; i++) {
+        temp = music_data.pop();
+        myPlaylist[i] =
+                {
+                    "title": temp[0]["title"],
+                    "artist": temp[0]["artist"],
+                    "mp3": "/uploadmusic/" + temp[0]["save_name"],
+                };
+    }
+    next=i;
+};

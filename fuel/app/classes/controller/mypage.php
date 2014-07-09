@@ -10,11 +10,11 @@ class Controller_Mypage extends Controller_Template {
         //ログイン中のユーザーID取得
         $userid = Auth::get_user_id()[1];
         //ユーザーが投稿したジャンル取得
-        $genre = Model_Mypage::get_genre($userid);
+        $genre = Model_Mypage::get_user_genre($userid);
         //ユーザーが投稿したアーティスト取得
-        $all_music = Model_Mypage::get_music($userid);
+        $all_music = Model_Mypage::get_user_music($userid);
         //ユーザーが投稿したアーティスト取得
-        $artist = Model_Mypage::get_artist($userid);
+        $artist = Model_Mypage::get_user_artist($userid);
 
         //viewに渡す
         $this->template->content->set_safe('all_music', $all_music->as_array());
@@ -31,6 +31,7 @@ class Controller_Mypage extends Controller_Template {
         if (is_null($files)) {
             
         } else {
+            //トークン受信
             $token = Input::post('token');
             // 送信されたトークンがセッションのトークン配列の中にあるか調べる
             if (Session::get($token) === $token) {
@@ -57,17 +58,20 @@ class Controller_Mypage extends Controller_Template {
                         if (Input::method() == 'POST') {
 
                             $message = 'Upload完了';
-                            Session::delete($token); // 使用済みトークンを破棄
+                            // 使用済みトークンを破棄
+                            Session::delete($token); 
                             //投稿するユーザーのID取得
                             $id = Auth::get_user_id();
                             $filename = DOCROOT . 'uploadmusic/' . $file['saved_as'];
+                            //getID3生成
                             $getID3 = new getId3();
+                            //音楽データ取り出し
                             $music_temp = $getID3->analyze($filename);
                             getid3_lib::CopyTagsToComments($music_temp);
                             $music = $music_temp["tags"]["id3v2"];
                             //モデルに保存したファイル名とファイルパスを渡す
                             Model_Mypage::insert($music['title'], $music['artist'], $music['album'], $music['band'], $music['genre'], $music_temp['filename'], $music_temp['filepath'], $id[1]);
-
+                            //message渡す
                             $this->template->content->set_safe('message', $message);
                         }
                     }
@@ -77,11 +81,12 @@ class Controller_Mypage extends Controller_Template {
                     foreach (Upload::get_errors() as $error) {
                         $message .= $error['errors'][0]['message'] . '<br />';
                     }
-
+                    //message渡す
                     $this->template->content->set_safe('message', $message);
                 }
             } else {
                 $message = 'トークンが不正です';
+                //message渡す
                 $this->template->content->set_safe('message', $message);
             }
         }
@@ -94,20 +99,32 @@ class Controller_Mypage extends Controller_Template {
         $this->template->title = 'MyPage';
         // viewの適用
         $this->template->content = View::forge('mypage/music');
-        if (isset($_GET['all_music'])) {
+        if (isset($_POST['all_music'])) {
             //再生処理
-            var_dump($_GET['all_music']);
+            
+            //音楽データ変数
+            $music_data_temp = array();
+            
+            foreach ($_POST['all_music'] as $value) {
+                //音楽データ取得,格納
+                array_push($music_data_temp, Model_Mypage::get_music($value));
+            }
+            $music_data = array_reverse($music_data_temp);
+            $this->template->content->set_safe('music_data', json_encode($music_data));
+        } elseif (isset($_POST['edit'])) {
+            //編集処理
         }
     }
 
     function action_check() {
-        $genre = Input::post();
-        if (isset($_POST['all_music'])) {
+        $this->template = View::forge('template/musictemplate');
+        // titleの設定
+        $this->template->title = 'MyPage';
+        // viewの適用
+        $this->template->content = View::forge('mypage/music');
+        if (isset($_GET['all_music'])) {
             //再生処理
-            var_dump($genre);
-            exit;
-        } elseif (isset($_POST['edit'])) {
-            //編集処理
+            
         }
     }
 

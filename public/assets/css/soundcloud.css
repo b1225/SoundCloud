@@ -38,6 +38,8 @@
     background-color: #123456;
     color: #FFF;
     padding: 0 10px 0 16px;
+    overflow:auto;
+    overflow-x:hidden;
 }
 
 #footer{
@@ -54,6 +56,9 @@
 
 .margin-top-2{
     margin-top: 20px;
+}
+.margin-bottom-2{
+    margin-bottom: 20px;
 }
 
 
@@ -101,12 +106,14 @@
 .area:hover {
     white-space: normal;
 }
+.scr-box {
 
+    width: 90%;
+}
 .scr{
-  overflow: auto;   /* スクロール表示 */ 
-  width: 100%;
-  max-height: 700px;
-  overflow-x: hidden;
+    overflow:auto;
+    width: 100%;
+    max-height: 500px;
 }
 .music_box{
     position: fixed;
@@ -117,9 +124,16 @@
     background-color: #123456;
     color: #FFF;
     padding: 0 10px 0 16px;
-    
+
 }
 .music_box_cell{
-margin : 0 auto;
+    margin : 0 auto;
 }
-
+.table-check{
+    width: 34px;
+    height: 39px;
+}
+.table-data{
+    width: 195px;
+    height: 39px;
+}
